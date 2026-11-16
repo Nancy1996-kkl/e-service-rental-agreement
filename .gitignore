@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Secrets — never commit!
+.env
+.env.local
+
+# Logs & OS files
+*.log
+.DS_Store
+Thumbs.db
+
+# Temporary local data (users.json etc.)
+server/data/
+
+# Encrypted uploaded files
+server/storage/
