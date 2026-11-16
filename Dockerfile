@@ -18,7 +18,7 @@ WORKDIR /app
 # Dependencies mothalla (cache-ku)
 COPY server/package*.json server/
 COPY client/package*.json client/
-RUN npm ci --prefix server --omit=dev && npm ci --prefix client
+RUN npm ci --prefix server --omit=dev && npm ci --prefix client --include=dev
 
 # Code
 COPY shared shared
