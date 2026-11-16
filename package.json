@@ -1,0 +1,22 @@
+{
+  "name": "e-service-rental-agreement",
+  "private": true,
+  "description": "Main folder commands — server & client rendukkum oru idathula irundhu",
+  "scripts": {
+    "postinstall": "npm install --prefix server && npm install --prefix client",
+    "dev": "concurrently --names SERVER,CLIENT --prefix-colors blue,green --kill-others-on-fail \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "build": "npm run build --prefix client",
+    "start": "npm start --prefix server",
+    "test": "npm test --prefix server",
+    "create-admin": "npm run create-admin --prefix server --",
+    "import-templates": "npm run import-templates --prefix server",
+    "google:auth": "npm run google:auth --prefix server",
+    "google:setup": "npm run google:setup --prefix server",
+    "google:migrate": "npm run google:migrate --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.7"
+  }
+}

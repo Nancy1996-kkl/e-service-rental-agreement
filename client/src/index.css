@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@import "../../shared/agreement-doc.css";
+
+/* Namma design system colors — full app-la idhaiye use pannuvom */
+@theme {
+  --color-primary-50: #eef4ff;
+  --color-primary-100: #dbe6fe;
+  --color-primary-500: #3b6ef5;
+  --color-primary-600: #2553e0;
+  --color-primary-700: #1d41b5;
+  --font-sans: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+
+body {
+  @apply bg-slate-50 text-slate-800 antialiased;
+}
+
+/* Agreement document design — shared/agreement-doc.css (PDF download-um idhe use pannum) */
+
+/* ===== Document editor (Step 5) ===== */
+.agreement-doc .ProseMirror { min-height: 240mm; }
+.agreement-doc .ProseMirror:focus { outline: none; }
+.agreement-doc .ProseMirror p.is-editor-empty:first-child::before { color: #94a3b8; }
+/* Editor-la ovvoru table-um thaniya wrapper-la irukkum — signatures (kadaisi) table mattum 50/50 */
+.agreement-doc .tableWrapper { overflow-x: auto; }
+.agreement-doc .tableWrapper table tr td { width: auto !important; height: auto !important; }
+.agreement-doc .tableWrapper:last-of-type table tr td { width: 50% !important; }
+.agreement-doc .tableWrapper:last-of-type table tr:nth-child(2) td { height: 34pt !important; }
+.agreement-doc .selectedCell { background: #e0e7ff !important; }
