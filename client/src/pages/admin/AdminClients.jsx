@@ -54,8 +54,47 @@ export default function AdminClients() {
       {error && <Alert type="error">{error}</Alert>}
       {!clients && !error && <Loader />}
       {clients && (
-        <Card className="overflow-hidden">
-          <div className="overflow-x-auto">
+        <>
+        {/* 📱 Mobile: cards */}
+        <div className="space-y-3 md:hidden">
+          {clients.length === 0 && <Card className="p-6 text-center text-sm text-slate-500">No clients found.</Card>}
+          {clients.map((c) => {
+            const isMe = c.id === me.id;
+            return (
+              <Card key={c.id} className="p-4">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <Link to={`/admin/clients/${c.id}`} className="font-medium text-primary-700 hover:underline">{c.fullName}</Link>
+                    <p className="truncate text-xs text-slate-500">{c.email}</p>
+                  </div>
+                  <div className="flex shrink-0 flex-wrap justify-end gap-1">
+                    <StatusBadge status={c.isActive ? 'active' : 'disabled'} />
+                    {c.role === 'admin' && <StatusBadge status="admin" />}
+                  </div>
+                </div>
+                <p className="mt-2 text-xs text-slate-600">
+                  📱 {c.mobile} · {c.agreements.total} agreement(s) · Joined {formatDate(c.createdAt)}
+                </p>
+                {!isMe && (
+                  <div className="mt-3 grid grid-cols-2 gap-2 border-t border-slate-100 pt-3">
+                    <Button size="sm" variant="secondary" loading={busyId === c.id}
+                      className={c.isActive ? '!text-red-600' : ''}
+                      onClick={() => update(c, { isActive: !c.isActive }, c.isActive ? `Disable ${c.fullName}? They will not be able to log in.` : null)}>
+                      {c.isActive ? 'Disable' : 'Enable'}
+                    </Button>
+                    <Button size="sm" variant="secondary" disabled={busyId === c.id}
+                      onClick={() => update(c, { role: c.role === 'admin' ? 'client' : 'admin' },
+                        c.role === 'admin' ? `Remove admin access from ${c.fullName}?` : `Give ${c.fullName} full admin access?`)}>
+                      {c.role === 'admin' ? 'Remove admin' : 'Make admin'}
+                    </Button>
+                  </div>
+                )}
+              </Card>
+            );
+          })}
+        </div>
+        <Card className="hidden overflow-hidden md:block">
+          <div className="relative overflow-x-auto">
             <table className="w-full min-w-[820px]">
               <thead className="bg-slate-50">
                 <tr>
@@ -107,6 +146,7 @@ export default function AdminClients() {
             </table>
           </div>
         </Card>
+        </>
       )}
     </>
   );

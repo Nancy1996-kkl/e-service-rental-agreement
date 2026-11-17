@@ -12,7 +12,7 @@ import {
   deleteTemplate,
   THEMES,
 } from '../services/templateService.js';
-import { listClauses, createClause, updateClause, deleteClause } from '../services/clauseService.js';
+import { listClauses, createClause, updateClause, deleteClause, addMissingDefaultClauses } from '../services/clauseService.js';
 import { logAction, listActions } from '../services/auditService.js';
 import { PLACEHOLDERS } from '../config/placeholders.js';
 
@@ -266,4 +266,10 @@ export async function auditLog(req, res) {
   const [actions, users] = await Promise.all([listActions(200), listUsers()]);
   const byId = new Map(users.map((u) => [u.id, u.email]));
   res.json({ actions: actions.map((a) => ({ ...a, user: byId.get(a.userId) || a.userId })) });
+}
+
+export async function addDefaultClauses(req, res) {
+  const added = await addMissingDefaultClauses();
+  await logAction(req.user, 'clause.defaults', '', `${added} added`);
+  res.json({ added, clauses: await listClauses() });
 }

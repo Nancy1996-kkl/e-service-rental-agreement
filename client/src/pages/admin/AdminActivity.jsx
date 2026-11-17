@@ -34,7 +34,7 @@ export default function AdminActivity() {
     <>
       <PageHeader title="Activity log" text="Sensitive admin actions — latest 200." />
       <Card className="overflow-hidden">
-        <div className="overflow-x-auto">
+        <div className="relative overflow-x-auto">
           <table className="w-full min-w-[700px]">
             <thead className="bg-slate-50">
               <tr><th className={th}>When</th><th className={th}>Who</th><th className={th}>Action</th><th className={th}>Details</th></tr>

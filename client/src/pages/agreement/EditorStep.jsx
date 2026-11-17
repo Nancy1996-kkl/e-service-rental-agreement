@@ -95,6 +95,7 @@ function DocumentEditor({ template, standardClauses }) {
   };
 
   if (!editor) return <Loader />;
+  const wordCount = editor.getText().trim().split(/\s+/).filter(Boolean).length;
 
   return (
     <div className="space-y-5">
@@ -109,19 +110,26 @@ function DocumentEditor({ template, standardClauses }) {
         <Button variant="ghost" size="sm" onClick={handleReset} className="shrink-0">↺ Reset to template</Button>
       </div>
 
-      <div className="rounded-xl shadow-sm ring-1 ring-slate-200">
+      <div className="rounded-xl bg-white shadow-sm ring-1 ring-slate-200">
         {/* Toolbar scroll aagumbodhum mela nikkum (navbar keezha) */}
         <div className="sticky top-16 z-20 overflow-hidden rounded-t-xl">
           <EditorToolbar editor={editor} />
+          <div className="flex items-center gap-x-4 gap-y-1 border-b border-slate-200 bg-slate-50 px-3 py-1.5 text-xs text-slate-500">
+            <span className="inline-flex items-center gap-1.5">
+              <span className="max-w-[110px] truncate rounded bg-indigo-100 px-1.5 py-px text-indigo-800">{agreement.owner?.fullName || 'Name'}</span>
+              <span>🔒 auto-filled — change in Details / Terms</span>
+            </span>
+            <span className="ml-auto hidden sm:inline">A4 · {wordCount} words</span>
+          </div>
         </div>
-        <div className="rounded-b-xl bg-slate-100 px-2 py-6 sm:px-6">
-          <article className={`agreement-doc doc-theme-${template.theme || 'classic'} mx-auto w-full max-w-[210mm] bg-white shadow-md`}>
+        <div className="rounded-b-xl bg-slate-200/70 px-1.5 py-4 sm:px-8 sm:py-8">
+          <article className={`agreement-doc doc-theme-${template.theme || 'classic'} mx-auto w-full max-w-[210mm] bg-white shadow-[0_2px_12px_rgba(15,23,42,0.18)]`}>
             <EditorContent editor={editor} />
           </article>
         </div>
       </div>
 
-      <div className="sticky bottom-0 -mx-4 flex flex-col-reverse gap-3 border-t border-slate-200 bg-white/95 px-4 py-4 backdrop-blur sm:mx-0 sm:flex-row sm:items-center sm:justify-between sm:rounded-xl sm:border sm:px-5">
+      <div className="step-actions sticky bottom-0 z-20 -mx-4 flex flex-col gap-2 border-t border-slate-200 bg-white/95 px-4 pt-2.5 pb-3 shadow-[0_-6px_16px_-8px_rgba(15,23,42,0.15)] backdrop-blur sm:mx-0 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:rounded-xl sm:border sm:px-5 sm:py-4 sm:shadow-none">
         <SaveStatus status={status} />
         <div className="flex gap-3">
           <Button variant="secondary" onClick={() => navigate('../rules')}>Back</Button>

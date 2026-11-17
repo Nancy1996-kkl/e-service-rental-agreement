@@ -51,8 +51,30 @@ export default function AdminAgreements() {
       {error && <Alert type="error">{error}</Alert>}
       {!list && !error && <Loader />}
       {list && (
-        <Card className="overflow-hidden">
-          <div className="overflow-x-auto">
+        <>
+        {/* 📱 Mobile: cards */}
+        <div className="space-y-3 md:hidden">
+          {list.length === 0 && <Card className="p-6 text-center text-sm text-slate-500">No agreements found.</Card>}
+          {list.map((a) => (
+            <Link key={a.id} to={`/admin/agreements/${a.id}`} className="block">
+              <Card className="p-4 transition hover:ring-primary-300">
+                <div className="flex items-start justify-between gap-2">
+                  <p className="min-w-0 font-medium text-primary-700">{a.owner?.fullName || '—'} → {a.tenant?.fullName || '—'}</p>
+                  <StatusBadge status={a.status} />
+                </div>
+                <p className="mt-0.5 truncate text-xs text-slate-500">{a.property?.address}</p>
+                <dl className="mt-3 grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs">
+                  <dt className="text-slate-500">Client</dt><dd className="text-slate-800">{a.client.fullName}</dd>
+                  <dt className="text-slate-500">Template</dt><dd className="text-slate-800">{getTemplate(a.templateId)?.icon} {getTemplate(a.templateId)?.name?.replace(/ Agreement$/, '') || a.templateId}</dd>
+                  <dt className="text-slate-500">Rent</dt><dd className="text-slate-800">{formatRupees(a.property?.monthlyRent) || '—'}</dd>
+                  <dt className="text-slate-500">Updated</dt><dd className="text-slate-800">{formatDate(a.updatedAt)}</dd>
+                </dl>
+              </Card>
+            </Link>
+          ))}
+        </div>
+        <Card className="hidden overflow-hidden md:block">
+          <div className="relative overflow-x-auto">
             <table className="w-full min-w-[860px]">
               <thead className="bg-slate-50">
                 <tr>
@@ -82,6 +104,7 @@ export default function AdminAgreements() {
             </table>
           </div>
         </Card>
+        </>
       )}
     </>
   );

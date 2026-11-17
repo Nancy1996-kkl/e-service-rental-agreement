@@ -38,7 +38,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop menu */}
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-8 lg:flex">
           {NAV_LINKS.map((link) => (
             <Link key={link.label} to={link.to} className={linkClass}>
               {link.label}
@@ -46,7 +46,7 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           {user ? (
             <>
               <span className="text-sm text-slate-500">Hi, {user.fullName.split(' ')[0]}</span>
@@ -65,7 +65,7 @@ export default function Navbar() {
         {/* Mobile hamburger button */}
         <button
           type="button"
-          className="rounded-lg p-2 text-slate-700 hover:bg-slate-100 md:hidden"
+          className="rounded-lg p-2 text-slate-700 hover:bg-slate-100 lg:hidden"
           onClick={() => setOpen(!open)}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
@@ -82,7 +82,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="border-t border-slate-200 bg-white px-4 pb-4 md:hidden">
+        <div className="border-t border-slate-200 bg-white px-4 pb-4 lg:hidden">
           <div className="flex flex-col gap-1 py-3">
             {NAV_LINKS.map((link) => (
               <Link

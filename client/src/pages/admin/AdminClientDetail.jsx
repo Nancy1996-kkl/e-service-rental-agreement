@@ -31,7 +31,7 @@ export default function AdminClientDetail() {
       <p className="-mt-3 mb-5 text-sm text-slate-500">Joined {formatDate(client.createdAt)}</p>
 
       <Card className="overflow-hidden">
-        <div className="overflow-x-auto">
+        <div className="relative overflow-x-auto">
           <table className="w-full min-w-[640px]">
             <thead className="bg-slate-50">
               <tr><th className={th}>Owner → Tenant</th><th className={th}>Template</th><th className={th}>Rent</th><th className={th}>Status</th><th className={th}>Updated</th></tr>

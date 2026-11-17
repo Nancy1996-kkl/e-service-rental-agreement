@@ -10,7 +10,7 @@ const STATES = {
 export default function SaveStatus({ status }) {
   const s = STATES[status] || STATES.idle;
   return (
-    <p className={`text-sm ${s.className}`} aria-live="polite">
+    <p className={`text-center text-xs sm:text-left sm:text-sm ${s.className}`} aria-live="polite">
       {s.text}
     </p>
   );
