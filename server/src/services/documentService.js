@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import puppeteer from 'puppeteer-core';
 import juice from 'juice';
 import HTMLtoDOCX from '@turbodocx/html-to-docx';
+import { fixDocxForWord } from '../utils/docxFix.js';
 import { getTemplateById } from './templateService.js';
 import { listClauses } from './clauseService.js';
 import { buildPlaceholderValues, fillTemplate, findMissing } from '../../../shared/placeholders.js';
@@ -125,7 +126,8 @@ export async function generateDocx(agreement) {
     title: 'Rental Agreement',
     table: { row: { cantSplit: true } },
   });
-  return Buffer.from(buffer);
+  // MS Word-la 100+ empty pages varaama irukka (utils/docxFix.js paarunga)
+  return fixDocxForWord(Buffer.from(buffer));
 }
 
 export async function closeBrowser() {

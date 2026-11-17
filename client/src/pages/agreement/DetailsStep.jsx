@@ -114,7 +114,7 @@ export default function DetailsStep() {
       </FormSection>
 
       {/* Keezha sticky action bar */}
-      <div className="sticky bottom-0 -mx-4 flex flex-col-reverse gap-3 border-t border-slate-200 bg-white/95 px-4 py-4 backdrop-blur sm:mx-0 sm:flex-row sm:items-center sm:justify-between sm:rounded-xl sm:border sm:px-5">
+      <div className="step-actions sticky bottom-0 z-20 -mx-4 flex flex-col gap-2 border-t border-slate-200 bg-white/95 px-4 pt-2.5 pb-3 shadow-[0_-6px_16px_-8px_rgba(15,23,42,0.15)] backdrop-blur sm:mx-0 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:rounded-xl sm:border sm:px-5 sm:py-4 sm:shadow-none">
         <SaveStatus status={status} />
         <div className="flex gap-3">
           <Button variant="secondary" onClick={() => navigate('../template')}>Back</Button>

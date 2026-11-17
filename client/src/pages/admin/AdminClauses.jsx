@@ -48,6 +48,16 @@ export default function AdminClauses() {
     }
   };
 
+  const addDefaults = async () => {
+    try {
+      const { added } = await adminApi.addDefaultClauses();
+      toast.success(added ? `${added} suggested clause(s) added` : 'All suggested clauses are already added');
+      load();
+    } catch (err) {
+      toast.error(getErrorMessage(err));
+    }
+  };
+
   if (error) return <Alert type="error">{error}</Alert>;
   if (!clauses) return <Loader />;
   const nameOf = (id) => templates.find((t) => t.id === id)?.name || id;
@@ -55,7 +65,10 @@ export default function AdminClauses() {
   return (
     <>
       <PageHeader title="Standard clauses" text="Approved clauses added automatically to the Terms & Conditions of agreements.">
-        <Button onClick={() => setEditing('new')}>+ Add clause</Button>
+        <div className="flex flex-wrap gap-2">
+          <Button variant="secondary" onClick={addDefaults}>Add suggested clauses</Button>
+          <Button onClick={() => setEditing('new')}>+ Add clause</Button>
+        </div>
       </PageHeader>
       <Alert type="warning" className="mb-5">
         Add only clauses approved by the client or a qualified legal professional. Rules can differ between states.

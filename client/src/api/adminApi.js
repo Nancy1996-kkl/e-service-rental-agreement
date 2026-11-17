@@ -23,6 +23,7 @@ export const adminApi = {
 
   clauses: () => api.get('/admin/clauses').then(data),
   createClause: (clause) => api.post('/admin/clauses', clause).then(data),
+  addDefaultClauses: () => api.post('/admin/clauses/defaults').then(data),
   updateClause: (id, changes) => api.patch(`/admin/clauses/${id}`, changes).then(data),
   deleteClause: (id) => api.delete(`/admin/clauses/${id}`).then(data),
 

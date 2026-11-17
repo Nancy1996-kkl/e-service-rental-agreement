@@ -31,6 +31,7 @@ router.delete('/templates/:id', admin.removeTemplate);
 
 router.get('/clauses', admin.listAllClauses);
 router.post('/clauses', admin.addClause);
+router.post('/clauses/defaults', admin.addDefaultClauses);
 router.patch('/clauses/:id', admin.editClause);
 router.delete('/clauses/:id', admin.removeClause);
 

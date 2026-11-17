@@ -45,7 +45,7 @@ export default function AdminOverview() {
           <h3 className="font-semibold text-slate-900">Recent agreements</h3>
           <Link to="/admin/agreements" className="text-sm font-medium text-primary-600 hover:underline">View all</Link>
         </div>
-        <div className="overflow-x-auto">
+        <div className="relative overflow-x-auto">
           <table className="w-full min-w-[640px]">
             <thead className="bg-slate-50">
               <tr><th className={th}>Owner → Tenant</th><th className={th}>Client</th><th className={th}>Rent</th><th className={th}>Status</th><th className={th}>Updated</th></tr>

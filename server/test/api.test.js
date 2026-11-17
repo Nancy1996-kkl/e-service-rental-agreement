@@ -139,6 +139,12 @@ test('download: Word file, completed status, reopen', async () => {
   assert.equal(docx.status, 200);
   assert.equal(docx.data.subarray(0, 2).toString(), 'PK'); // .docx = zip
   assert.match(docx.headers.get('content-disposition'), /Rental-Agreement-Suresh-M/);
+  // MS Word 100+ empty pages bug thirumba varakoodaadhu
+  const { default: JSZip } = await import('jszip');
+  const xml = await (await JSZip.loadAsync(docx.data)).file('word/document.xml').async('string');
+  assert.doesNotMatch(xml, /<w:tcW w:w="0" w:type="dxa"\/>/, 'no zero-width table cells');
+  assert.doesNotMatch(xml, /<w:spacing(?:(?!w:line=)[^>])*w:lineRule="auto"\/>/, 'line spacing has a value');
+  assert.match(xml, /<w:sectPr>[\s\S]*<\/w:sectPr>\s*<\/w:body>/, 'page settings at the end');
 
   const after = await user('GET', `/agreements/${agreementId}`);
   assert.equal(after.data.agreement.status, 'completed');
